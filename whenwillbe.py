@@ -28,16 +28,17 @@ class Create(webapp.RequestHandler):
         self.response.out.write('fuck you!\n')
 
 class Event(webapp.RequestHandler):
-    def get(self):
+    def get(self, url):
         self.response.headers['Content-Type'] = 'text/html'
-        self.response.out.write(template.render('templates/event.html', {'event': {'url':self.request.path.split('/')[2]}}))
+        
+        self.response.out.write(template.render('templates/event.html', {'event': {'name':'foobar', 'time':'', 'url':url}}))
         
 
 ### APP HANDLER ###
 
 application = webapp.WSGIApplication([('/', MainPage),
                                       ('/create', Create),
-                                      ('/e/.*', Event),
+                                      ('/e/(.*)', Event),
                                      ],
                                      debug=True)
 
