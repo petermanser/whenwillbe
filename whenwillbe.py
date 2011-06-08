@@ -7,7 +7,8 @@ class MainPage(webapp.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html'
         
         self.response.out.write(template.render('templates/index.html', {}))
-        
+
+
 
 application = webapp.WSGIApplication(
                                      [('/', MainPage)],
