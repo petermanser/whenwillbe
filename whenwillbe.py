@@ -13,6 +13,7 @@ class Event(db.Model):
 
 
 ### REQUEST HANDLERS ###
+
 class MainPage(webapp.RequestHandler):
     def get(self):
         self.response.headers['Content-Type'] = 'text/html'
@@ -26,11 +27,17 @@ class Create(webapp.RequestHandler):
     def post(self):
         self.response.out.write('fuck you!\n')
 
+class Event(webapp.RequestHandler):
+    def get(self):
+        self.response.headers['Content-Type'] = 'text/html'
+        self.response.out.write(template.render('templates/event.html', {'event': {'url':self.request.path.split('/')[2]}}))
+        
 
 ### APP HANDLER ###
 
 application = webapp.WSGIApplication([('/', MainPage),
-                                      ('/create', Create)
+                                      ('/create', Create),
+                                      ('/e/.*', Event),
                                      ],
                                      debug=True)
 
