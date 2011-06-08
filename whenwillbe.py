@@ -7,7 +7,7 @@ from google.appengine.ext import db
 
 class Event(db.Model):
     url = db.StringProperty(required=True)
-    time = db.DateProperty(required=True)
+    time = db.DateTimeProperty(required=True)
     name = db.StringProperty(required=True)
     description = db.StringProperty(multiline=True)
 
