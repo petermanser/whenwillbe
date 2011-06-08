@@ -8,10 +8,15 @@ class MainPage(webapp.RequestHandler):
         
         self.response.out.write(template.render('templates/index.html', {}))
 
+class Create(webapp.RequestHandler):
+    def get(self):
+        self.redirect('/', permanent=True)
 
 
-application = webapp.WSGIApplication(
-                                     [('/', MainPage)],
+
+application = webapp.WSGIApplication([('/', MainPage),
+                                      ('/create', Create)
+                                     ],
                                      debug=True)
 
 def main():
