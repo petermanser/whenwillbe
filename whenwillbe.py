@@ -12,10 +12,16 @@ class Create(webapp.RequestHandler):
     def get(self):
         self.redirect('/', permanent=True)
 
+class Event(webapp.RequestHandler):
+    def get(self):
+        self.response.headers['Content-Type'] = 'text/html'
+        self.response.out.write(template.render('templates/event.html', {'event': {'url':self.request.path.split('/')[2]}}))
+        
 
 
 application = webapp.WSGIApplication([('/', MainPage),
-                                      ('/create', Create)
+                                      ('/create', Create),
+                                      ('/e/.*', Event),
                                      ],
                                      debug=True)
 
