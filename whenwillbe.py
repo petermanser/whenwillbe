@@ -1,11 +1,13 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.ext.webapp import template
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.out.write('When will be...?')
-
+        self.response.headers['Content-Type'] = 'text/html'
+        
+        self.response.out.write(template.render('templates/index.html', {}))
+        
 
 application = webapp.WSGIApplication(
                                      [('/', MainPage)],
