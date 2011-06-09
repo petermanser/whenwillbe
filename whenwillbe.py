@@ -1,3 +1,6 @@
+from datetime import datetime
+import time 
+
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
@@ -7,7 +10,7 @@ from google.appengine.ext import db
 
 class Event(db.Model):
     url = db.StringProperty(required=True)
-    time = db.DateTimeProperty(required=True)
+    when = db.DateTimeProperty(required=True)
     name = db.StringProperty(required=True)
     description = db.StringProperty(multiline=True)
 
@@ -20,14 +23,22 @@ class MainPage(webapp.RequestHandler):
         
         self.response.out.write(template.render('templates/index.html', {}))
 
-class Create(webapp.RequestHandler):
+class CreateHandler(webapp.RequestHandler):
     def get(self):
         self.redirect('/', permanent=True)
 
     def post(self):
-        self.response.out.write('fuck you!\n')
+        when = datetime.fromtimestamp(float(self.request.get('when')))
+        name = self.request.get('name')
+        description = self.request.get('description')
+        url = '1234' # TODO
 
-class Event(webapp.RequestHandler):
+        event = Event(url=url, when=when, name=name, description=description)
+        event.put()
+
+        self.response.out.write('"%s" written to db.\n' % name)
+
+class EventHandler(webapp.RequestHandler):
     def get(self, url):
         self.response.headers['Content-Type'] = 'text/html'
         
@@ -37,8 +48,8 @@ class Event(webapp.RequestHandler):
 ### APP HANDLER ###
 
 application = webapp.WSGIApplication([('/', MainPage),
-                                      ('/create', Create),
-                                      ('/e/(.*)', Event),
+                                      ('/create', CreateHandler),
+                                      ('/e/(.*)', EventHandler),
                                      ],
                                      debug=True)
 
