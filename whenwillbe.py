@@ -52,8 +52,12 @@ class EventHandler(webapp.RequestHandler):
         self.response.headers['Content-Type'] = 'text/html'
         
         event = Event.all().filter('url =', url).get()
-        data = {'event': event}
-        self.response.out.write(template.render('templates/event.html', data))
+        if not event:
+            self.error(404)
+            self.response.out.write('404 not found')
+        else:
+            data = {'event': event}
+            self.response.out.write(template.render('templates/event.html', data))
         
 
 ### APP HANDLER ###
