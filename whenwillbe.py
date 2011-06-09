@@ -51,7 +51,8 @@ class EventHandler(webapp.RequestHandler):
     def get(self, url):
         self.response.headers['Content-Type'] = 'text/html'
         
-        data = {'event': {'name':'foobar', 'time':'', 'url':url}}
+        event = Event.all().filter('url =', url).get()
+        data = {'event': event}
         self.response.out.write(template.render('templates/event.html', data))
         
 
