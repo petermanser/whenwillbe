@@ -1,5 +1,7 @@
 from datetime import datetime
 import time 
+import random
+import string
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
@@ -13,6 +15,12 @@ class Event(db.Model):
     when = db.DateTimeProperty(required=True)
     name = db.StringProperty(required=True)
     description = db.StringProperty(multiline=True)
+
+
+### HELPER FUNCTION ###
+
+def generate_url():
+    return ''.join(random.choice(string.ascii_lowercase + string.digits) for x in range(6))
 
 
 ### REQUEST HANDLERS ###
@@ -31,18 +39,19 @@ class CreateHandler(webapp.RequestHandler):
         when = datetime.fromtimestamp(float(self.request.get('when')))
         name = self.request.get('name')
         description = self.request.get('description')
-        url = '1234' # TODO
+        url = generate_url()
 
         event = Event(url=url, when=when, name=name, description=description)
         event.put()
 
-        self.response.out.write('"%s" written to db.\n' % name)
+        self.response.out.write('"%s" written to db.\n' % url)
 
 class EventHandler(webapp.RequestHandler):
     def get(self, url):
         self.response.headers['Content-Type'] = 'text/html'
         
-        self.response.out.write(template.render('templates/event.html', {'event': {'name':'foobar', 'time':'', 'url':url}}))
+        data = {'event': {'name':'foobar', 'time':'', 'url':url}}
+        self.response.out.write(template.render('templates/event.html', data))
         
 
 ### APP HANDLER ###
