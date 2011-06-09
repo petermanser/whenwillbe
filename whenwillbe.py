@@ -46,6 +46,9 @@ class CreateHandler(webapp.RequestHandler):
 
         event = Event(url=url, when=when, name=name, description=description)
         event.put()
+        
+        self.redirect('/e/%s' % url, permanent=False)
+        
 
 class EventHandler(webapp.RequestHandler):
     def get(self, url):
@@ -56,8 +59,8 @@ class EventHandler(webapp.RequestHandler):
             self.error(404)
             self.response.out.write('404 not found')
         else:
-            data = {'event': event}
-            self.response.out.write(template.render('templates/event.html', data))
+            # event.when = event.when.time()
+            self.response.out.write(template.render('templates/event.html', {'event': event, 'timestamp': int(time.mktime(event.when.timetuple()))}))
         
 
 ### APP HANDLER ###

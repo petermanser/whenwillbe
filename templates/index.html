@@ -7,11 +7,12 @@
     </head>
     <body>
         <div id="wrapper">
-            <h1>when will be</h1>
+            <h1>when will your event be</h1>
+            <p>stupid timezones - we help you and your attendees to be on time. :)</p>
             <form action="/create" method="post">
-                <input type="text" id="name" />
-                <input type="calendar" id="date" />
-                <input type="submit" id="submit" />
+                <input name="name" type="text" placeholder="Title" id="name" />
+                <input name="when" type="calendar" placeholder="Unix Timestamp" id="when" />
+                <input type="submit" id="submit" value="Create" />
             </form>
         </div>
     </body>

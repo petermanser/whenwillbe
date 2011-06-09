@@ -1,5 +1,145 @@
+/*------------------------------------*\
+  RESET
+\*------------------------------------*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0b1 | 201101
+   NOTE:WORK IN PROGRESS
+   USE WITH CAUTION AND TEST WITH ABANDON */
+
+html,body,div,span,applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,
+a,abbr,acronym,address,big,cite,code,
+del,dfn,em,img,ins,kbd,q,s,samp,
+small,strike,strong,sub,sup,tt,var,
+b,u,i,center,
+dl,dt,dd,ol,ul,li,
+fieldset,form,label,legend,
+table,caption,tbody,tfoot,thead,tr,th,td,
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary,
+time,mark,audio,video{
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  font:inherit;
+  vertical-align:baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section{
+  display:block;
+}
+body{
+  line-height:1;
+}
+ol,ul{
+  list-style:none;
+}
+blockquote,q{
+  quotes:none;
+}
+blockquote:before,blockquote:after,
+q:before,q:after{
+  content:'';
+  content:none;
+}
+
+/* remember to highlight inserts somehow! */
+ins{
+  text-decoration:none;
+}
+del{
+  text-decoration:line-through;
+}
+
+table{
+  border-collapse:collapse;
+  border-spacing:0;
+}
+
+/* end reset */
+body {
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+/*    background-image: url(/static/bg.png);*/
+    background-color: #333;
+    color: #fff;
+}
 #wrapper {
-    width:500px;
+    width: 600px;
     margin: 50px auto;
     
+}
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom:10px;
+}
+p {
+    font-style: italic;
+}
+form {
+    margin-top:30px;
+    width:400px;
+    float: left;
+}
+form input {
+    width:250px;
+    color: #333;
+    
+    padding: 5px 10px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    
+    border: 1px solid #000;
+}
+form input[type=submit] {
+    width: 100px;
+    
+    font-weight: 600;
+    text-align:center;
+    text-decoration: none;
+    text-shadow: rgba(0, 0, 0, 0.1) 0px -1px 0px;
+    
+    -webkit-box-shadow: 0px 0px 3px #333;
+    -moz-box-shadow: 0px 0px 3px #333;
+    box-shadow: 0px 0px 3px #333;
+    
+    cursor: pointer;
+    
+    color: #FFFFFF;
+
+    border: 1px solid #8D9C37;
+    
+    background: #d1e751; /* Old browsers */
+    background: -moz-linear-gradient(top, #d1e751 0%, #bbcf48 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d1e751), color-stop(100%,#bbcf48)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #d1e751 0%,#bbcf48 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #d1e751 0%,#bbcf48 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #d1e751 0%,#bbcf48 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d1e751', endColorstr='#bbcf48',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #d1e751 0%,#bbcf48 100%); /* W3C */
+}
+form input[type=submit]:hover {
+    text-decoration: none;
+    background: #d1e751;
+}
+
+
+a,
+a:hover,
+a:visited {
+    color: #d1e751;
+}
+
+p#when {
+    margin-top:20px;
+    font-size:1.5em;
+}
+p#whenLong {
+    margin-top:10px;
+    font-size:0.8em;
 }

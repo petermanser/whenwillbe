@@ -5,13 +5,57 @@
         <link rel="stylesheet" type="text/css" href="/static/style.css" />
         
     </head>
-    <body>
+    <body onload="calc()">
         <div id="wrapper">
             <h1>{{ event.name }}</h1>
+            <a href="/e/{{ event.url }}">{{ event.url }}</a>
             <p>{{ event.description }}</p>
             
-            <span id="{{ event.time }}">{{ event.time }}</span>
-            <a href="{{ event.url }}">{{ event.url }}</a>
+            <p id="when" class="{{ timestamp }}"></p>
+            <p id="whenLong"></p>
         </div>
+        
+        <script>
+            function calc() {
+                var et,now,duration,out='',passed=false,units = {week: 604800, day:86400, hour:3600, minute:60};
+                
+                et = parseInt(document.getElementById('when').getAttribute('class'),10);
+                now = new Date();
+                
+                duration = (et - now.getTime()/1000 + 60*now.getTimezoneOffset());
+                // console.log(duration);
+                // console.log('d ' + duration/86400);
+                // console.log('h ' + duration/3600);
+                // console.log('m ' + duration/60);
+                
+                if (duration < 0) {
+                    duration = Math.abs(duration);
+                    passed = true;
+                }
+                
+                if (duration > 31536000) {
+                    out = 'oh, it takes a long time to this event (more than a year)';
+                } else {
+                    for(var u in units){ 
+                        count = Math.floor(duration/units[u]);
+                        if (count > 0) {
+                            duration -= count*units[u];
+                            out += ' ' + count + ' ' + u;
+                            if (count > 1) out += 's';
+                        }
+                    }
+                    
+                    if (passed) {
+                        out = 'it started' + out + ' ago';
+                    } else {
+                        out = 'it starts in' + out;
+                    }
+                }
+                
+                document.getElementById('when').innerHTML = out;
+                document.getElementById('whenLong').innerHTML = new Date(et*1000);
+            }
+            
+        </script>
     </body>
 </html>
