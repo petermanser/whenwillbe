@@ -39,12 +39,13 @@ class CreateHandler(webapp.RequestHandler):
         when = datetime.fromtimestamp(float(self.request.get('when')))
         name = self.request.get('name')
         description = self.request.get('description')
-        url = generate_url()
+        while 1:
+            url = generate_url()
+            if Event.all().filter('url =', url).count() == 0:
+                break
 
         event = Event(url=url, when=when, name=name, description=description)
         event.put()
-
-        self.response.out.write('"%s" written to db.\n' % url)
 
 class EventHandler(webapp.RequestHandler):
     def get(self, url):
